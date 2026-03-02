@@ -84,6 +84,6 @@ app.delete('/api/contacts/:id', (req, res) => {
   res.json({ success: true });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Birthday Tracker running at http://localhost:${PORT}`);
 });
