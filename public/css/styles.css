@@ -1,0 +1,516 @@
+:root {
+  --color-bg: #f0f2f5;
+  --color-surface: #ffffff;
+  --color-text: #1a1a2e;
+  --color-text-muted: #6c757d;
+  --color-primary: #4361ee;
+  --color-primary-hover: #3a56d4;
+  --color-accent: #f72585;
+  --color-accent-light: #ffe0f0;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-light: #dcf8e8;
+  --color-email-light: #e8edff;
+  --color-border: #dee2e6;
+  --color-today: #4361ee;
+  --color-selected: #e8edff;
+  --color-danger: #dc3545;
+  --color-danger-light: #fce4e6;
+
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-secondary:hover { background: var(--color-bg); }
+
+.btn-today {
+  padding: 4px 12px;
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-today:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--color-danger);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-danger:hover { background: #c82333; }
+
+/* Main Layout */
+main {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Calendar Panel */
+#calendar-panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.calendar-nav-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#calendar-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.nav-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--color-text);
+  transition: background 0.15s;
+}
+
+.nav-btn:hover { background: var(--color-bg); }
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+.calendar-weekdays div {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  padding: 6px;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.calendar-day:hover {
+  background: var(--color-selected);
+}
+
+.calendar-day.empty {
+  cursor: default;
+  background: transparent;
+}
+
+.calendar-day.empty:hover {
+  background: transparent;
+}
+
+.calendar-day.today {
+  box-shadow: inset 0 0 0 2px var(--color-today);
+}
+
+.calendar-day.selected {
+  background: var(--color-selected);
+  box-shadow: inset 0 0 0 2px var(--color-primary);
+}
+
+.calendar-day .day-number {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.calendar-day.empty .day-number {
+  color: transparent;
+}
+
+.birthday-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Details Panel */
+#details-panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.details-header {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--color-text);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--color-text-muted);
+  gap: 12px;
+}
+
+.empty-state p {
+  font-size: 14px;
+}
+
+/* Contact Cards */
+.contact-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.15s;
+}
+
+.contact-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.contact-birthday {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.contact-details {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.contact-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.1s, filter 0.15s;
+}
+
+.action-btn:hover { transform: scale(1.03); }
+.action-btn:active { transform: scale(0.97); }
+
+.action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.email-btn {
+  background: var(--color-email-light);
+  color: var(--color-primary);
+}
+
+.whatsapp-btn {
+  background: var(--color-whatsapp-light);
+  color: #128c3e;
+}
+
+.edit-btn {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.delete-btn {
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.action-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Modal */
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 1000;
+}
+
+#modal-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px);
+  transition: transform 0.2s ease;
+}
+
+#modal-overlay.visible .modal-content {
+  transform: translateY(0);
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+.form-group input.invalid {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.form-group .error-msg {
+  font-size: 12px;
+  color: var(--color-danger);
+  margin-top: 4px;
+  display: none;
+}
+
+.form-group .error-msg.show {
+  display: block;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+/* Scrollbar */
+#details-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+#details-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#details-panel::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+/* Confirm dialog */
+.confirm-dialog {
+  text-align: center;
+}
+
+.confirm-dialog p {
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.confirm-dialog .form-actions {
+  justify-content: center;
+}
