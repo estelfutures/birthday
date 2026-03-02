@@ -9,7 +9,7 @@ export function getMonthName(monthIndex) {
 
 export function formatDate(dateStr) {
   const [year, month, day] = dateStr.split('-').map(Number);
-  return `${MONTH_NAMES[month - 1]} ${day}, ${year}`;
+  return `${String(day).padStart(2, '0')}-${MONTH_NAMES[month - 1]}-${year}`;
 }
 
 export function calculateAge(dateStr) {
