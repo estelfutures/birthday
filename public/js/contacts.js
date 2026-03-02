@@ -62,11 +62,33 @@ export async function showContactsForDay(day, month, year) {
 
       const details = [c.email, c.phone].filter(Boolean).join(' | ');
 
+      const platformLabels = { linkedin: 'LinkedIn', instagram: 'Instagram', facebook: 'Facebook' };
+      const socialLink = c.socialPlatform && c.socialUrl
+        ? `<div class="contact-social">
+            <a href="${encodeURI(c.socialUrl)}" target="_blank" rel="noopener noreferrer" class="social-link social-${c.socialPlatform}">
+              ${platformLabels[c.socialPlatform] || c.socialPlatform}
+            </a>
+          </div>`
+        : '';
+
+      const categoryBadge = c.category
+        ? `<span class="category-badge category-${c.category.toLowerCase()}">${escapeHtml(c.category)}</span>`
+        : '';
+
+      const notesSection = c.notes
+        ? `<div class="contact-notes">${escapeHtml(c.notes)}</div>`
+        : '';
+
       html += `
         <div class="contact-card" data-id="${c.id}">
-          <div class="contact-name">${name}</div>
+          <div class="contact-card-header">
+            <div class="contact-name">${name}</div>
+            ${categoryBadge}
+          </div>
           <div class="contact-birthday">${formatDate(c.birthday)} (age ${age})</div>
           ${details ? `<div class="contact-details">${escapeHtml(details)}</div>` : ''}
+          ${socialLink}
+          ${notesSection}
           <div class="contact-actions">
             ${emailLink}
             ${whatsappLink}

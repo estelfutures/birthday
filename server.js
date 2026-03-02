@@ -30,7 +30,7 @@ app.get('/api/contacts', (req, res) => {
 
 // Add a new contact
 app.post('/api/contacts', (req, res) => {
-  const { fullName, birthday, phone, email } = req.body;
+  const { fullName, birthday, phone, email, socialPlatform, socialUrl, category, notes } = req.body;
   if (!fullName || !birthday) {
     return res.status(400).json({ error: 'Full name and birthday are required' });
   }
@@ -41,6 +41,10 @@ app.post('/api/contacts', (req, res) => {
     birthday,
     phone: phone || '',
     email: email || '',
+    socialPlatform: socialPlatform || '',
+    socialUrl: socialUrl || '',
+    category: category || '',
+    notes: notes || '',
     createdAt: new Date().toISOString()
   };
   contacts.push(newContact);
@@ -55,11 +59,15 @@ app.put('/api/contacts/:id', (req, res) => {
   if (index === -1) {
     return res.status(404).json({ error: 'Contact not found' });
   }
-  const { fullName, birthday, phone, email } = req.body;
+  const { fullName, birthday, phone, email, socialPlatform, socialUrl, category, notes } = req.body;
   if (fullName !== undefined) contacts[index].fullName = fullName.trim();
   if (birthday !== undefined) contacts[index].birthday = birthday;
   if (phone !== undefined) contacts[index].phone = phone;
   if (email !== undefined) contacts[index].email = email;
+  if (socialPlatform !== undefined) contacts[index].socialPlatform = socialPlatform;
+  if (socialUrl !== undefined) contacts[index].socialUrl = socialUrl;
+  if (category !== undefined) contacts[index].category = category;
+  if (notes !== undefined) contacts[index].notes = notes;
   writeContacts(contacts);
   res.json(contacts[index]);
 });

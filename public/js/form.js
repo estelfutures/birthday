@@ -29,6 +29,32 @@ function getFormHtml(title, contact) {
         <input type="email" id="email" placeholder="jane@example.com"
                value="${contact ? contact.email : ''}">
       </div>
+      <div class="form-group">
+        <label for="socialPlatform">Social Media Link</label>
+        <div class="social-input-row">
+          <select id="socialPlatform">
+            <option value="">Select platform</option>
+            <option value="linkedin" ${contact && contact.socialPlatform === 'linkedin' ? 'selected' : ''}>LinkedIn</option>
+            <option value="instagram" ${contact && contact.socialPlatform === 'instagram' ? 'selected' : ''}>Instagram</option>
+            <option value="facebook" ${contact && contact.socialPlatform === 'facebook' ? 'selected' : ''}>Facebook</option>
+          </select>
+          <input type="url" id="socialUrl" placeholder="https://linkedin.com/in/janedoe"
+                 value="${contact ? contact.socialUrl || '' : ''}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category">
+          <option value="">Select category</option>
+          <option value="Personal" ${contact && contact.category === 'Personal' ? 'selected' : ''}>Personal</option>
+          <option value="Work" ${contact && contact.category === 'Work' ? 'selected' : ''}>Work</option>
+          <option value="Acquaintance" ${contact && contact.category === 'Acquaintance' ? 'selected' : ''}>Acquaintance</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="notes">Notes</label>
+        <textarea id="notes" rows="3" placeholder="Important notes about this person...">${contact ? contact.notes || '' : ''}</textarea>
+      </div>
       <div class="form-actions">
         <button type="button" class="btn-secondary" id="cancel-btn">Cancel</button>
         <button type="submit" class="btn-primary">${contact ? 'Update' : 'Save'} Contact</button>
@@ -48,6 +74,10 @@ function wireForm(onSave) {
     const birthday = document.getElementById('birthday').value;
     const phone = sanitizePhone(document.getElementById('phone').value);
     const email = document.getElementById('email').value.trim();
+    const socialPlatform = document.getElementById('socialPlatform').value;
+    const socialUrl = document.getElementById('socialUrl').value.trim();
+    const category = document.getElementById('category').value;
+    const notes = document.getElementById('notes').value.trim();
 
     // Validate
     let valid = true;
@@ -63,7 +93,7 @@ function wireForm(onSave) {
     }
     if (!valid) return;
 
-    await onSave({ fullName, birthday, phone, email });
+    await onSave({ fullName, birthday, phone, email, socialPlatform, socialUrl, category, notes });
     closeModal();
   });
 
